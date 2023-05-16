@@ -28,4 +28,5 @@ jobs:
             -d '{
               "content": "Code source mis à jour :\nCommit: '"$commit_message"'\nAuteur: '"$commit_author"'\nDate: '"$(date -d @$commit_timestamp +'%Y-%m-%d %H:%M:%S')"'"
             }' $DISCORD_WEBHOOK_URL
-            #le content correspond à la notif recue dans mon serveur discord avec comme informations: le nom du commit, l'auteur et la date du commit
+        #le content correspond à la notif recue dans mon serveur discord avec comme informations: le nom du commit, l'auteur et la date du commit
+
