@@ -7,16 +7,12 @@ on:
   workflow_dispatch:
   
 jobs:
-
           
   goreleaser-compilation:
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le code source
         uses: actions/checkout@v2
-
-
-          
       - name: compiler avec GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
@@ -29,7 +25,11 @@ jobs:
       steps:
         - name: Récupérer le code source
           uses: actions/checkout@v2
-
+        - name: Publier les artefacts de version
+          uses: actions/upload-artifact@v2
+          with:
+            name: release
+            path: ./dist
         - name: Télécharger les artefacts de version
           uses: actions/download-artifact@v2
           with:
