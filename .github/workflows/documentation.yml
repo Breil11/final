@@ -24,6 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Construction du projet
+        run: go build ./... # pour s'assurer que le projet est compilé correctement
+        
       - name: Génération de la documentation
         run: go doc -all > docs.txt  #pour générer la documentation de tous les packages du projet Go et la redirigeons vers un fichier docs.txt
 
