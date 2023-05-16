@@ -1,8 +1,9 @@
-name: Bonus4 - Notifi on sécurity
+name: Bonus4 - Notify on sécurity
 
 on:
-  schedule:
-    - cron: "0 0 * * 0" # Exécuter chaque dimanche à minuit UTC
+  #schedule:
+    #- cron: "0 0 * * 0" # chaque dimanche à minuit UTC
+  workflow_dispatch:
 
 jobs:
   security-alerts:
