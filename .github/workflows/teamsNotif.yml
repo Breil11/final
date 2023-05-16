@@ -22,11 +22,7 @@ jobs:
         with:
           github-token: ${{ github.token }} # this will use the runner's token.
           ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          notification-summary: |
-            Code source mis à jour :
-            Commit: ${{ github.sha }}
-            Auteur: ${{ github.actor }}
-            Date: ${{ github.event.head_commit.timestamp }}
+        
 
           notification-color: 17a2b8
        
