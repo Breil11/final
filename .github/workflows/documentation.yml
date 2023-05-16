@@ -1,0 +1,33 @@
+name: Bonus5 - Générate documentation
+#comme bonus 5 générer des rapports automatisés sur des métriques spécifiques du projet, comme la couverture de tests, la qualité du code, les performances, etc.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+ checkout-and-configuration:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v2
+
+      - name: Configuration de Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+          
+          
+ build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Génération de la documentation
+        run: go doc -all > docs.txt  #pour générer la documentation de tous les packages du projet Go et la redirigeons vers un fichier docs.txt
+
+      - name: Création des fichiers HTML
+        run: |
+          mkdir -p docs/html #je crée un répertoire docs/html
+          godoc -html -goroot . < docs.txt > docs/html/index.html #j'utilise godoc -html pour générer les fichiers HTML de documentation en utilisant le fichier docs.txt
