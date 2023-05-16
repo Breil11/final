@@ -1,12 +1,13 @@
 name: Bonus4 - Notify on sécurity
+#comme bonus 4 ce workflow permettra de recevoir des notifications lorsque de nouvelles vulnérabilités de sécurité sont découvertes dans les dépendances du projet.
 
 on:
   #schedule:
     #- cron: "0 0 * * 0" # chaque dimanche à minuit UTC
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
-  security-alerts:
+  checkout-et-configuration:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,18 +18,22 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.x
-        
+  GoSec:
+   runs-on: ubuntu-latest
+   steps:
       - name: Téléchargement de GoSec
         run: |
           curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.8.1
 
       - name: Vérification des vulnérabilités
         run: |
-          # Remplacez cette commande par celle spécifique à votre outil de vérification de vulnérabilités
+          # jai opté pour l'outil de vérification de vulnérabilités gosec
           go get github.com/securego/gosec/v2/cmd/gosec
           gosec ./...
-
+          
+  security-alerts:
+    runs-on: ubuntu-latest
+    steps:
       - name: Notification des vulnérabilités
         run: |
-          # Remplacez cette commande par celle spécifique à votre système de notification
           echo "Vulnérabilités détectées. Envoyer une notification."
