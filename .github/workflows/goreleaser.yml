@@ -29,7 +29,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: release
-            path: ./bin
+            path: ./usr
         - name: Télécharger les artefacts de version
           uses: actions/download-artifact@v2
           with:
