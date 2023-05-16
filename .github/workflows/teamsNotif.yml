@@ -18,12 +18,15 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Notify Team
-        uses: microsoft/teams-set-status@v1
+        uses: jdcargile/ms-teams-notification@v1.3
         with:
-          endpoint: ${{ secrets.TEAMS_WEBHOOK_URL }} #j'ai crée un secret avec le webhook de mon équipe teams
-          status: "success"
-          message: |
+          github-token: ${{ github.token }} # this will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          notification-summary: |
             Code source mis à jour :
             Commit: ${{ github.sha }}
             Auteur: ${{ github.actor }}
             Date: ${{ github.event.head_commit.timestamp }}
+
+          notification-color: 17a2b8
+       
