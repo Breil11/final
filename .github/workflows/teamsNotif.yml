@@ -17,12 +17,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Notify Team
+      - name: Notify in Teams
         uses: jdcargile/ms-teams-notification@v1.3
         with:
-          github-token: ${{ github.token }} # this will use the runner's token.
+          github-token: ${{ github.token }} #j'ai crée un secret avec le webhook de mon équipe teams
           ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
-        
-
           notification-color: 17a2b8
        
