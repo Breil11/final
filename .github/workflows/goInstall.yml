@@ -1,0 +1,22 @@
+
+
+name: Releaser install
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+          
+  goreleaser-compilation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Installer goreleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+
+
+      # Étapes supplémentaires pour utiliser les artefacts de version
