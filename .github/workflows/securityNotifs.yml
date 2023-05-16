@@ -18,8 +18,9 @@ jobs:
         with:
           go-version: 1.x
         
-      - name: Installation de GoSec
-        run: go get github.com/securego/gosec/v2/cmd/gosec
+      - name: Téléchargement de GoSec
+        run: |
+          curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.8.1
 
       - name: Vérification des vulnérabilités
         run: |
