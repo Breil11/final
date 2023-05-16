@@ -12,6 +12,9 @@ jobs:
   goreleaser-compilation:
     runs-on: ubuntu-latest
     steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v2
+
 
           
       - name: compiler avec GoReleaser
@@ -24,6 +27,9 @@ jobs:
   integration-into-the-release-artifacts:
       runs-on: ubuntu-latest
       steps:
+        - name: Récupérer le code source
+          uses: actions/checkout@v2
+
         - name: Télécharger les artefacts de version
           uses: actions/download-artifact@v2
           with:
