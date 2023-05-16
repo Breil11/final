@@ -1,0 +1,25 @@
+name: Notify Team
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Notify Team
+        uses: microsoft/teams-set-status@v1
+        with:
+          endpoint: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          status: "success"
+          message: |
+            Code source mis à jour :
+            Commit: ${{ github.sha }}
+            Auteur: ${{ github.actor }}
+            Date: ${{ github.event.head_commit.timestamp }}
