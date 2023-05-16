@@ -29,10 +29,8 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: release
-            path: ./usr
+            path: ./dist #le répertoire dans lequel les artefacts sont générés
         - name: Télécharger les artefacts de version
           uses: actions/download-artifact@v2
           with:
             name: release
-
-      # Étapes supplémentaires pour utiliser les artefacts de version
