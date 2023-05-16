@@ -1,9 +1,13 @@
-name: Notify Team
+name: Bonus3 - Notify in Microsoft Teams
+#comme bonus 2 j'ai crée ce workflow qui sera déclenché lorsqu'un nouveau commit sera effectué
+#sur la branche main et envoyer une notification dans mon équipe Teams
+
 
 on:
   push:
     branches:
-      - master
+      - main
+  workflow_dispatch:
 
 jobs:
   notify:
@@ -16,7 +20,7 @@ jobs:
       - name: Notify Team
         uses: microsoft/teams-set-status@v1
         with:
-          endpoint: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          endpoint: ${{ secrets.TEAMS_WEBHOOK_URL }} #j'ai crée un secret avec le webhook de mon équipe teams
           status: "success"
           message: |
             Code source mis à jour :
