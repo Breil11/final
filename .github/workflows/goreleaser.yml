@@ -17,9 +17,14 @@ jobs:
         with:
           version: latest
 
-      - name: Compiler le projet avec goreleaser
-        run: |
-          goreleaser release --rm-dist
+
+          
+      - name: compiler avec GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist
+
           
   integration-into-the-release-artifacts:
       runs-on: ubuntu-latest
