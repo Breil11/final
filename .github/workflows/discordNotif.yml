@@ -1,0 +1,28 @@
+name: Bouns2 - Notify in Discord
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          commit_message=$(git log -1 --pretty=format:"%s")
+          commit_author=$(git log -1 --pretty=format:"%an")
+          commit_timestamp=$(git log -1 --pretty=format:"%ct")
+
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{
+              "content": "Code source mis à jour :\nCommit: '"$commit_message"'\nAuteur: '"$commit_author"'\nDate: '"$(date -d @$commit_timestamp +'%Y-%m-%d %H:%M:%S')"'"
+            }' $DISCORD_WEBHOOK_URL
