@@ -1,0 +1,20 @@
+
+name: Bonus1 - SLSA Go releaser 
+#comme bonus j'ai crée ce workflow qui sera déclenché, et le projet Go sera compilé en 
+#utilisant le constructeur SLSA3 lorsqu'une nouvelle version (release) sera crée.
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+permissions: read-all
+
+jobs:
+  build:
+    permissions:
+      id-token: write # To sign
+      contents: write # To upload release assets.
+      actions: read   # To read workflow path.
+    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@v1.4.0
+    with:
+      go-version: 1.17
