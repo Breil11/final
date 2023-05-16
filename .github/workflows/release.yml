@@ -1,4 +1,4 @@
-name: Publication de l'image Docker
+name: Release workflow
 
 on:
   push:
@@ -7,7 +7,32 @@ on:
   workflow_dispatch:
   
 jobs:
-    build-and-publish-image:
+  goreleaser-compilation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Installer goreleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist
+          
+      - name: Compiler le projet avec goreleaser
+        run: |
+          goreleaser release --rm-dist
+          
+          
+          
+  integration-into-the-release-artifacts:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Télécharger les artefacts de version
+          uses: actions/download-artifact@v2
+          with:
+            name: release
+
+
+
+  build-and-publish-image:
       runs-on: ubuntu-latest
       steps:
         - name: Récupérer le code source
@@ -31,7 +56,7 @@ jobs:
             context: ./super_calculator
             file: ./super_calculator/Dockerfile
             push: true
-            tags: ${{ secrets.DOCKER_USERNAME }}/calculator10:${{ env.DOCKER_TAG }}
+            tags: ${{ secrets.DOCKER_USERNAME }}/supercalculator:${{ env.DOCKER_TAG }}
 
 
 #
