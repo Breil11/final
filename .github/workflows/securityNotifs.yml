@@ -1,0 +1,29 @@
+name: Bonus4 - Notifi on sécurity
+
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Exécuter chaque dimanche à minuit UTC
+
+jobs:
+  security-alerts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v2
+
+      - name: Configuration de Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+
+      - name: Vérification des vulnérabilités
+        run: |
+          # Remplacez cette commande par celle spécifique à votre outil de vérification de vulnérabilités
+          go get github.com/securego/gosec/v2/cmd/gosec
+          gosec ./...
+
+      - name: Notification des vulnérabilités
+        run: |
+          # Remplacez cette commande par celle spécifique à votre système de notification
+          echo "Vulnérabilités détectées. Envoyer une notification."
