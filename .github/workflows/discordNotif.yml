@@ -1,4 +1,6 @@
 name: Bouns2 - Notify in Discord
+#comme bonus 2 j'ai crée ce workflow qui sera déclenché lorsqu'un nouveau commit sera effectué
+#sur la branche main et envoyer une notification à mon serveur Discord
 
 on:
   push:
@@ -16,7 +18,7 @@ jobs:
 
       - name: Notify Discord
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }} #j'ai crée un secret avec le webhook de mon serveur discord
         run: |
           commit_message=$(git log -1 --pretty=format:"%s")
           commit_author=$(git log -1 --pretty=format:"%an")
@@ -26,3 +28,4 @@ jobs:
             -d '{
               "content": "Code source mis à jour :\nCommit: '"$commit_message"'\nAuteur: '"$commit_author"'\nDate: '"$(date -d @$commit_timestamp +'%Y-%m-%d %H:%M:%S')"'"
             }' $DISCORD_WEBHOOK_URL
+            #le content correspond à la notif recue dans mon serveur discord avec comme informations: le nom du commit, l'auteur et la date du commit
