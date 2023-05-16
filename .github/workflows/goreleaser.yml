@@ -12,11 +12,6 @@ jobs:
   goreleaser-compilation:
     runs-on: ubuntu-latest
     steps:
-      - name: Installer goreleaser
-        uses: goreleaser/goreleaser-action@v2
-        with:
-          version: latest
-
 
           
       - name: compiler avec GoReleaser
