@@ -17,8 +17,9 @@ jobs:
           config: "p/golang"
           path: "."
           run: |
-           docker run --rm -i semgrep/semgrep < ./super_calculator/Dockerfile2
-
+           docker run --rm -i semgrep/semgrep < ./super_calculator/Dockerfile2 
+        #j'ai du créer un deuxieme Dockerfile suite à des erreurs et pour pas interferer avec l'action du release workflow qui lui utulise le 1er Dockerfile
+  
   Dockerfile-analysis-with-hadolint:
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +28,7 @@ jobs:
       - name: Analyse Dockerfile avec hadolint
         run: |
           docker run --rm -i hadolint/hadolint < ./super_calculator/Dockerfile2
+        #j'ai du créer un deuxieme Dockerfile suite à des erreurs et pour pas interferer avec l'action du release workflow qui lui utulise le 1er Dockerfile
 
   superlint-execution-if-pull_request-evenement:
     runs-on: ubuntu-latest
