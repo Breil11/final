@@ -30,6 +30,9 @@ jobs:
       #     fi
 
       # Install and Run GoReleaser
+      - name: Debug GITHUB_REF
+        run: echo "GITHUB_REF: $GITHUB_REF"
+
       - name: Install and Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
