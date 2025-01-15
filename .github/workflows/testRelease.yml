@@ -3,7 +3,7 @@ name: Test Release Workflow
 on:
   push:
     tags:
-      - "*"
+      - "v*.*.*"  # Déclenche le workflow pour les tags de type vX.Y.Z
   workflow_dispatch:
 
 jobs:
@@ -19,27 +19,23 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20' # Replace with your Go version
+          go-version: '1.20'
 
+      # Verify that the tag is correct
+      - name: Verify Tag
+        run: |
+          if [[ ! "${GITHUB_REF}" =~ ^refs/tags/v.*$ ]]; then
+            echo "Error: This is not a valid tag."
+            exit 1
+          fi
+
+      # Install and Run GoReleaser
       - name: Install and Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-      # # Install GoReleaser
-      # - name: Install GoReleaser
-      #   uses: goreleaser/goreleaser-action@v4
-      #   with:
-      #     version: latest
-
-      # # Run GoReleaser to build the project
-      # - name: Run GoReleaser
-      #   run: goreleaser release --clean --rm-dist
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   docker:
     name: Build and Push Docker Image
@@ -57,13 +53,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build the Docker image
+      # Verify tag name and Build Docker Image
       - name: Build Docker Image
         run: |
           TAG_NAME=${GITHUB_REF#refs/tags/}
+          echo "Tag name: $TAG_NAME"
           docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPO_NAME }}:$TAG_NAME .
 
-      # Push the Docker image
+      # Push Docker Image
       - name: Push Docker Image
         run: |
           TAG_NAME=${GITHUB_REF#refs/tags/}
