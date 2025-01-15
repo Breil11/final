@@ -10,15 +10,19 @@ jobs:
   goreleaser-compilation:
     runs-on: ubuntu-latest
     steps:
-      - name: Installer goreleaser
-        uses: goreleaser/goreleaser-action@v2
-        with:
-          version: latest
-          args: release --rm-dist
+      # - name: Installer goreleaser
+      #   uses: goreleaser/goreleaser-action@v2
+      #   with:
+      #     version: latest
+      #     args: release --rm-dist
+        - name: Install Goreleaser
+          uses: goreleaser/goreleaser-action@v4
+          with:
+            version: latest
           
-      - name: Compiler le projet avec goreleaser
-        run: |
-          goreleaser release --rm-dist
+        - name: Compiler le projet avec goreleaser
+          run: |
+            goreleaser release --rm-dist
           
           
           
