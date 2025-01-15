@@ -1,10 +1,11 @@
-name: Release Workflow
+name: Test Release Workflow
 
 on:
   push:
     tags:
       - 'v*.*.*' # Déclenchement sur des tags commençant par "v" suivi de numéros de version
-
+  workflow_dispatch:
+  
 jobs:
   release:
     name: Build and Release
