@@ -26,9 +26,16 @@ jobs:
           with:
             version: latest
           
-        - name: Compiler le projet avec goreleaser
-          run: |
-            goreleaser release --rm-dist
+        # - name: Compiler le projet avec goreleaser
+        #   run: |
+        #     goreleaser release --rm-dist
+        - name: Run Goreleaser
+          uses: goreleaser/goreleaser-action@v4
+          with:
+            args: release --rm-dist
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Obligatoire pour créer des artefacts et interagir avec GitHub
+
           
           
           
